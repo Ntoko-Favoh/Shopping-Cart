@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Food Shopping Cart</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <div class="container">
+      <h1>🛒 Food Market</h1>
+
+      <div class="products-section">
+          <h2>Available Products</h2>
+          <div class="product-grid" id="products">
+              <!-- Products will be populated by JavaScript -->
+          </div>
+      </div>
+
+      <div class="cart-section">
+          <h2>Shopping Cart</h2>
+          <div id="cart-items">
+              <div class="empty-cart">Your cart is empty</div>
+          </div>
+          <div class="cart-total" id="cart-total" style="display: none;">
+              <h3>Total</h3>
+              <div class="total-amount" id="total-amount">$0.00</div>
+              <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+          </div>
+      </div>
+  </div>
+
+  <!-- Safely embed the products list for JS -->
+  {{ products|json_script:"products-data" }}
+
+  <script>
+    // Load products from the json_script element
+    const products = JSON.parse(document.getElementById('products-data').textContent);
+  </script>
+
+  <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
